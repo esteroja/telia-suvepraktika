@@ -20,7 +20,7 @@ function App() {
         .then(json => {setPeople(json)})
   }, []);
 
-  function addPeople() {
+  function addPerson() {
     const newPerson = {
       "firstName": firstNameRef.current.value,
       "lastName": lastNameRef.current.value,
@@ -52,11 +52,17 @@ function App() {
     setEditData(person);
   }
 
+  function handleEditChange(event) {
+    const {name, value} = event.target;
+    setEditData(prev => ({...prev, [name]: value}));
+  }
+
   function updatePerson(id){
     fetch("http://localhost:8080/people/update/" + id,
         {
           "method": "PUT",
-          "body": JSON.stringify(editData)
+          "body": JSON.stringify(editData),
+          "headers": {"Content-Type": "application/json"}
         })
         .then(response => response.json())
         .then(json => {
@@ -67,13 +73,48 @@ function App() {
   }
 
   return (
-    <div className="App">
+      <div className="App">
+        <h1>People Manager</h1>
 
-      <header className="App-header">
+        <div>
+          <h2>Add New Person</h2>
+          <input placeholder="First Name" ref={firstNameRef} />
+          <input placeholder="Last Name" ref={lastNameRef} />
+          <input type="date" ref={birthDateRef} />
+          <input placeholder="Email" ref={emailRef} />
+          <input placeholder="Phone" ref={phoneRef} />
+          <input placeholder="Address" ref={addressRef} />
+          <button onClick={addPerson}>Add</button>
+        </div>
 
-
-      </header>
-    </div>
+        <div>
+          <h2>People List</h2>
+          {people.map(person => (
+              <div key={person.id}>
+                {editId === person.id ? (
+                    <>
+                      <input name="firstName" value={editData.firstName} onChange={handleEditChange} />
+                      <input name="lastName" value={editData.lastName} onChange={handleEditChange} />
+                      <input type="date" name="birthDate" value={editData.birthDate} onChange={handleEditChange} />
+                      <input name="email" value={editData.email} onChange={handleEditChange} />
+                      <input name="phone" value={editData.phone} onChange={handleEditChange} />
+                      <input name="address" value={editData.address} onChange={handleEditChange} />
+                      <button onClick={() => updatePerson(person.id)}>Save</button>
+                      <button onClick={() => setEditId(null)}>Cancel</button>
+                    </>
+                ) : (
+                    <>
+                      <p>{person.firstName} {person.lastName} (Born: {person.birthDate})</p>
+                      <p>Email: {person.email}, Phone: {person.phone}</p>
+                      <p>Address: {person.address}</p>
+                      <button onClick={() => startEdit(person)}>Edit</button>
+                      <button onClick={() => deletePerson(person.id)}>Delete</button>
+                    </>
+                )}
+              </div>
+          ))}
+        </div>
+      </div>
   );
 }
 
