@@ -27,6 +27,12 @@ public class PersonController {
         return personRepository.findAll();
     }
 
+    @DeleteMapping("people/{id}")
+    public List<PersonEntity> deletePerson(@PathVariable Long id) {
+        personRepository.deleteById(id);
+        return personRepository.findAll();
+    }
+
     @PutMapping("people/update/{id}")
     public List<PersonEntity> updatePerson(@PathVariable Long id, @RequestBody PersonUpdateDTO dto) {
         PersonEntity existingPerson = personRepository.findById(id).orElse(null);
