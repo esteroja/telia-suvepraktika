@@ -7,7 +7,7 @@ const Navbar = () => {
         <nav className="navbar">
             <div className="navbar-left">
                 <a href="/frontend/public" className="logo">
-                    Suvepraktika Proovitöö
+                    Suvepraktika proovitöö
                 </a>
             </div>
             <div className="navbar-right">

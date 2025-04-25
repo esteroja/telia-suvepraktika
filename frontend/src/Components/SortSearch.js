@@ -59,14 +59,16 @@ const SortSearch = ({people, setPeople}) => {
     };
 
     return (
-        <div>
+        <div className="flex md:flex-row flex-col md:justify-between w-full">
             <input
                 type="text"
                 placeholder="Otsi nime järgi..."
-                className="input-box my-4 w-full"
+                className="input-box md:mt-0 w-full mb-4"
                 onChange={(e) => handleSearch(e.target.value)}
             />
-            <select defaultValue={'DEFAULT'} onChange={(e) => setSortState(e.target.value)}>
+            <select defaultValue={'default'}
+                    onChange={(e) => setSortState(e.target.value)}
+                    className="input-box my-4 w-full">
                 <option value="default">Järjesta</option>
                 <option value="firstNameAZ">Eesnime järgi A-Z</option>
                 <option value="firstNameZA">Eesnime järgi Z-A</option>

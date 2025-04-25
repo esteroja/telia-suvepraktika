@@ -60,18 +60,18 @@
 
 .button-container {
   display: flex;
-  justify-content: space-between; /* mobile view */
-  margin-top: 1.25rem; /* mt-5 */
+  justify-content: space-between;
+  margin-top: 1.25rem;
 }
 
 @media (min-width: 768px) {
   .button-container {
-    flex-direction: column;       /* stack vertically on desktop */
-    justify-content: flex-start;  /* reset justify-between */
-    align-items: flex-end;        /* align to the right */
-    gap: 0.5rem;                  /* optional: space between stacked buttons */
-    margin-top: 0;                /* md:mt-0 */
-    margin-left: auto;            /* md:ml-auto */
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 0.5rem;
+    margin-top: 0;
+    margin-left: auto;
   }
 }
 

@@ -41,14 +41,14 @@ const AddPerson = ({setPeople}) => {
     return (
         <div className="bg-purple-200 p-6 rounded-xl max-w-sm md:self-start self-center mt-8 md:mt-0 md:ml-6">
             <div className="text-2xl font-bold mb-4 text-gray-800">Lisa uus isik</div>
-            <div className="">
+            <div>
                 <div className="input-field">
                     <label className="input-label">Eesnimi</label>
-                    <input className="input-box" placeholder="eesnimi" ref={firstNameRef}/>
+                    <input className="input-box" placeholder="Eesnimi" ref={firstNameRef}/>
                 </div>
                 <div className="input-field">
                     <label className="input-label">Perekonnanimi</label>
-                    <input className="input-box" placeholder="perekonnanimi" ref={lastNameRef}/>
+                    <input className="input-box" placeholder="Perekonnanimi" ref={lastNameRef}/>
                 </div>
                 <div className="input-field">
                     <label className="input-label">Sünnikuupäev</label>
@@ -56,15 +56,15 @@ const AddPerson = ({setPeople}) => {
                 </div>
                 <div className="input-field">
                     <label className="input-label">Email</label>
-                    <input className="input-box" type="email" placeholder="email" ref={emailRef}/>
+                    <input className="input-box" type="email" placeholder="Email" ref={emailRef}/>
                 </div>
                 <div className="input-field">
                     <label className="input-label">Telefon</label>
-                    <input className="input-box" placeholder="telefon" ref={phoneRef}/>
+                    <input className="input-box" placeholder="Telefon" ref={phoneRef}/>
                 </div>
                 <div className="input-field">
                     <label className="input-label">Aadress</label>
-                    <input className="input-box" placeholder="aadress" ref={addressRef}/>
+                    <input className="input-box" placeholder="Aadress" ref={addressRef}/>
                 </div>
             </div>
             <div className="mt-4">
