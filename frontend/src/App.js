@@ -131,13 +131,13 @@ function App() {
                                   </div>
                               ) : (
                                   <div className="md:flex md:flex-row py-4 gap-6 md:text-left">
-                                      <div className="md:w-48">
+                                      <div className="md:w-64">
                                           <div className="text-lg font-medium">{person.firstName} {person.lastName}</div>
                                           <div className="text-gray-500">
                                               Sünniaeg: {person.birthDate.split("-").reverse().join(".")}
                                           </div>
                                       </div>
-                                      <div className="md:w-80">
+                                      <div className="md:w-96">
                                           <div className="text-black mt-4 md:mt-0">📧 {person.email}</div>
                                           <div className="text-black">📞 {person.phone}</div>
                                           <div className="text-black">🏠 {person.address}</div>
