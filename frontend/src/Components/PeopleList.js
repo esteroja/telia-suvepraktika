@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 const PeopleList = ({people, setPeople}) => {
     const [editId, setEditId] = useState(null);
     const [editData, setEditData] = useState({});
+    const [sortState, setSortState] = useState("default");
 
     function deletePerson(id){
         fetch("http://localhost:8080/people/" + id, {"method": "DELETE"})
@@ -34,9 +35,38 @@ const PeopleList = ({people, setPeople}) => {
                 setEditData({});
             })
     }
+
+    useEffect(() => {
+        if (sortState === "firstNameAZ") {
+            const sorted = [...people].sort((a, b) => a.firstName.localeCompare(b.firstName, 'et'));
+            setPeople(sorted);
+        } else if (sortState === "firstNameZA") {
+            const sorted = [...people].sort((a, b) => b.firstName.localeCompare(a.firstName, 'et'));
+            setPeople(sorted);
+        } else if (sortState === "lastNameAZ") {
+            const sorted = [...people].sort((a, b) => a.lastName.localeCompare(b.lastName, 'et'));
+            setPeople(sorted);
+        } else if (sortState === "lastNameZA") {
+            const sorted = [...people].sort((a, b) => b.lastName.localeCompare(a.lastName, 'et'));
+            setPeople(sorted);
+        } else if (sortState === "default") {
+            fetch("http://localhost:8080/people")
+                .then(response => response.json())
+                .then(json => setPeople(json));
+        }
+    }, [sortState]);
+
+
     return (
         <div className="md:w-full md:max-w-xl md:mx-auto">
             <div className="text-3xl font-bold mb-4 text-gray-800">Isikute nimekiri</div>
+            <select defaultValue={'DEFAULT'} onChange={(e) => setSortState(e.target.value)}>
+                <option value="default">Järjesta</option>
+                <option value="firstNameAZ">Eesnime järgi A-Z</option>
+                <option value="firstNameZA">Eesnime järgi Z-A</option>
+                <option value="lastNameAZ">Perenime järgi A-Z</option>
+                <option value="lastNameZA">Perenime järgi Z-A</option>
+            </select>
             {people.map((person, index) => (
                 <div key={person.id}>
                     {editId === person.id ? (
