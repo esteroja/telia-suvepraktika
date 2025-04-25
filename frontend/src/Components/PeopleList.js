@@ -1,4 +1,6 @@
 import React, {useEffect, useState} from 'react';
+import Fuse from 'fuse.js'
+
 
 const PeopleList = ({people, setPeople}) => {
     const [editId, setEditId] = useState(null);
@@ -68,14 +70,41 @@ const PeopleList = ({people, setPeople}) => {
         } else if (sortState === "default") {
             fetch("http://localhost:8080/people")
                 .then(response => response.json())
-                .then(json => setPeople(json));
+                .then(json => {setPeople(json)});
         }
     }, [sortState]);
+
+    const handleSearch = (query) => {
+        if (!query.trim()) {
+            fetch("http://localhost:8080/people")
+                .then(res => res.json())
+                .then(json => {setPeople(json)});
+            return;
+        }
+
+        const options = {
+            keys: ['firstName', 'lastName'],
+            threshold: 0.3,
+        };
+
+        const fuse = new Fuse(people, options);
+        const results = fuse.search(query);
+        const matchedPeople = results.map(result => result.item);
+
+        const unmatchedPeople = people.filter(p => !matchedPeople.includes(p));
+        setPeople([...matchedPeople, ...unmatchedPeople]);
+    };
 
 
     return (
         <div className="md:w-full md:max-w-xl md:mx-auto">
             <div className="text-3xl font-bold mb-4 text-gray-800">Isikute nimekiri</div>
+            <input
+                type="text"
+                placeholder="Otsi nime järgi..."
+                className="input-box my-4 w-full"
+                onChange={(e) => handleSearch(e.target.value)}
+            />
             <select defaultValue={'DEFAULT'} onChange={(e) => setSortState(e.target.value)}>
                 <option value="default">Järjesta</option>
                 <option value="firstNameAZ">Eesnime järgi A-Z</option>
