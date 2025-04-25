@@ -1,12 +1,12 @@
 import React from 'react';
-import './Navbar.css';
+import '../Navbar.css';
 
 const Navbar = () => {
     return (
 
         <nav className="navbar">
             <div className="navbar-left">
-                <a href="/" className="logo">
+                <a href="/frontend/public" className="logo">
                     Suvepraktika Proovitöö
                 </a>
             </div>
