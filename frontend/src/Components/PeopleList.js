@@ -37,6 +37,16 @@ const PeopleList = ({people, setPeople}) => {
     }
 
     useEffect(() => {
+        const getAge = (birthDate) => {
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            return age;
+        };
         if (sortState === "firstNameAZ") {
             const sorted = [...people].sort((a, b) => a.firstName.localeCompare(b.firstName, 'et'));
             setPeople(sorted);
@@ -48,6 +58,12 @@ const PeopleList = ({people, setPeople}) => {
             setPeople(sorted);
         } else if (sortState === "lastNameZA") {
             const sorted = [...people].sort((a, b) => b.lastName.localeCompare(a.lastName, 'et'));
+            setPeople(sorted);
+        } else if (sortState === "ageAscending") {
+            const sorted = [...people].sort((a, b) => getAge(a.birthDate) - getAge(b.birthDate));
+            setPeople(sorted);
+        } else if (sortState === "ageDescending") {
+            const sorted = [...people].sort((a, b) => getAge(b.birthDate) - getAge(a.birthDate));
             setPeople(sorted);
         } else if (sortState === "default") {
             fetch("http://localhost:8080/people")
@@ -66,6 +82,8 @@ const PeopleList = ({people, setPeople}) => {
                 <option value="firstNameZA">Eesnime järgi Z-A</option>
                 <option value="lastNameAZ">Perenime järgi A-Z</option>
                 <option value="lastNameZA">Perenime järgi Z-A</option>
+                <option value="ageDescending">Vanus alates vanemast</option>
+                <option value="ageAscending">Vanus alates nooremast</option>
             </select>
             {people.map((person, index) => (
                 <div key={person.id}>
