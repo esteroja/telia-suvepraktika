@@ -91,61 +91,61 @@ function App() {
                           <div key={person.id}>
                               {editId === person.id ? (
                                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4 md:w-[180px]">
-                                      <div className="InputField">
-                                          <label className="InputLabel">Eesnimi</label>
-                                          <input className="InputBox" name="firstName" value={editData.firstName}
+                                      <div className="input-field">
+                                          <label className="input-label">Eesnimi</label>
+                                          <input className="input-box" name="firstName" value={editData.firstName}
                                                  onChange={handleEditChange} />
                                       </div>
-                                      <div className="InputField">
-                                          <label className="InputLabel">Perekonnanimi</label>
-                                          <input className="InputBox" name="lastName" value={editData.lastName}
+                                      <div className="input-field">
+                                          <label className="input-label">Perekonnanimi</label>
+                                          <input className="input-box" name="lastName" value={editData.lastName}
                                                  onChange={handleEditChange} />
                                       </div>
-                                      <div className="InputField">
-                                          <label className="InputLabel">Sünnikuupäev</label>
-                                          <input className="InputBox" type="date" name="birthDate"
+                                      <div className="input-field">
+                                          <label className="input-label">Sünnikuupäev</label>
+                                          <input className="input-box" type="date" name="birthDate"
                                                  value={editData.birthDate} onChange={handleEditChange} />
                                       </div>
 
-                                      <div className="InputField">
-                                          <label className="InputLabel">Email</label>
-                                          <input className="InputBox" name="email" value={editData.email}
+                                      <div className="input-field">
+                                          <label className="input-label">Email</label>
+                                          <input className="input-box" name="email" value={editData.email}
                                                  onChange={handleEditChange} />
                                       </div>
-                                      <div className="InputField">
-                                          <label className="InputLabel">Telefon</label>
-                                          <input className="InputBox" name="phone" value={editData.phone}
+                                      <div className="input-field">
+                                          <label className="input-label">Telefon</label>
+                                          <input className="input-box" name="phone" value={editData.phone}
                                                  onChange={handleEditChange} />
                                       </div>
-                                      <div className="InputField">
-                                          <label className="InputLabel">Aadress</label>
-                                          <input className="InputBox" name="address" value={editData.address}
+                                      <div className="input-field">
+                                          <label className="input-label">Aadress</label>
+                                          <input className="input-box" name="address" value={editData.address}
                                                  onChange={handleEditChange} />
                                       </div>
                                       <div className="col-span-full space-x-2 mt-2">
-                                          <button className="ButtonStyle bg-green-500 hover:bg-green-600"
+                                          <button className="button-style bg-green-500 hover:bg-green-600"
                                                   onClick={() => updatePerson(person.id)}>Salvesta</button>
-                                          <button className="ButtonStyle bg-gray-400 hover:bg-gray-500"
+                                          <button className="button-style bg-gray-400 hover:bg-gray-500"
                                                   onClick={() => setEditId(null)}>Katkesta</button>
                                       </div>
                                   </div>
                               ) : (
-                                  <div className="md:flex md:flex-row py-4 gap-6 text-left">
-                                      <div className="md:w-[180px]">
+                                  <div className="md:flex md:flex-row py-4 gap-6 md:text-left">
+                                      <div className="md:w-48">
                                           <div className="text-lg font-medium">{person.firstName} {person.lastName}</div>
                                           <div className="text-gray-500">
                                               Sünniaeg: {person.birthDate.split("-").reverse().join(".")}
                                           </div>
                                       </div>
-                                      <div>
+                                      <div className="md:w-80">
                                           <div className="text-black mt-4 md:mt-0">📧 {person.email}</div>
                                           <div className="text-black">📞 {person.phone}</div>
                                           <div className="text-black">🏠 {person.address}</div>
                                       </div>
-                                      <div className="mt-5 md:m-0 md:flex-col flex place-self-end">
-                                          <button className="ButtonStyle bg-red-400 hover:bg-red-600 md:mb-2"
+                                      <div className="button-container">
+                                          <button className="button-style bg-red-400 hover:bg-red-600 md:mb-2"
                                                   onClick={() => deletePerson(person.id)}>Kustuta</button>
-                                          <button className="ButtonStyle bg-indigo-400 hover:bg-indigo-600"
+                                          <button className="button-style bg-indigo-400 hover:bg-indigo-600"
                                                   onClick={() => startEdit(person)}>Muuda</button>
                                       </div>
                                   </div>
@@ -154,36 +154,36 @@ function App() {
                           </div>
                       ))}
                   </div>
-                  <div className="bg-purple-200 p-6 rounded-xl max-w-sm md:self-start self-center mt-8 md:mt-0">
+                  <div className="bg-purple-200 p-6 rounded-xl max-w-sm md:self-start self-center mt-8 md:mt-0 md:ml-6">
                       <div className="text-2xl font-bold mb-4 text-gray-800">Lisa uus isik</div>
                       <div className="">
-                          <div className="InputField">
-                              <label className="InputLabel">Eesnimi</label>
-                              <input className="InputBox" placeholder="eesnimi" ref={firstNameRef}/>
+                          <div className="input-field">
+                              <label className="input-label">Eesnimi</label>
+                              <input className="input-box" placeholder="eesnimi" ref={firstNameRef}/>
                           </div>
-                          <div className="InputField">
-                              <label className="InputLabel">Perekonnanimi</label>
-                              <input className="InputBox" placeholder="perekonnanimi" ref={lastNameRef}/>
+                          <div className="input-field">
+                              <label className="input-label">Perekonnanimi</label>
+                              <input className="input-box" placeholder="perekonnanimi" ref={lastNameRef}/>
                           </div>
-                          <div className="InputField">
-                              <label className="InputLabel">Sünnikuupäev</label>
-                              <input className="InputBox" type="date" ref={birthDateRef}/>
+                          <div className="input-field">
+                              <label className="input-label">Sünnikuupäev</label>
+                              <input className="input-box" type="date" ref={birthDateRef}/>
                           </div>
-                          <div className="InputField">
-                              <label className="InputLabel">Email</label>
-                              <input className="InputBox" type="email" placeholder="email" ref={emailRef}/>
+                          <div className="input-field">
+                              <label className="input-label">Email</label>
+                              <input className="input-box" type="email" placeholder="email" ref={emailRef}/>
                           </div>
-                          <div className="InputField">
-                              <label className="InputLabel">Telefon</label>
-                              <input className="InputBox" placeholder="telefon" ref={phoneRef}/>
+                          <div className="input-field">
+                              <label className="input-label">Telefon</label>
+                              <input className="input-box" placeholder="telefon" ref={phoneRef}/>
                           </div>
-                          <div className="InputField">
-                              <label className="InputLabel">Aadress</label>
-                              <input className="InputBox" placeholder="aadress" ref={addressRef}/>
+                          <div className="input-field">
+                              <label className="input-label">Aadress</label>
+                              <input className="input-box" placeholder="aadress" ref={addressRef}/>
                           </div>
                       </div>
                       <div className="mt-4">
-                          <button className="ButtonStyle bg-indigo-400 hover:bg-indigo-600"
+                          <button className="button-style bg-indigo-400 hover:bg-indigo-600"
                                   onClick={addPerson}>Lisa</button>
                       </div>
                   </div>

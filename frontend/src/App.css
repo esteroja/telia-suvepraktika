@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -37,7 +26,7 @@
   }
 }
 
-.InputBox {
+.input-box {
   border-width: 2px;
   border-color: rebeccapurple;
   padding: 0.5rem;
@@ -47,26 +36,43 @@
   width: 16rem;
 }
 
-.InputBox:focus {
+.input-box:focus {
   border-color: #db2777;
 }
 
-.InputField {
+.input-field {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.InputLabel {
+.input-label {
   font-size: 14px;
   margin-bottom: 0.25rem;
   color: black;
 }
 
-.ButtonStyle {
+.button-style {
   color:white;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; /* mobile view */
+  margin-top: 1.25rem; /* mt-5 */
+}
+
+@media (min-width: 768px) {
+  .button-container {
+    flex-direction: column;       /* stack vertically on desktop */
+    justify-content: flex-start;  /* reset justify-between */
+    align-items: flex-end;        /* align to the right */
+    gap: 0.5rem;                  /* optional: space between stacked buttons */
+    margin-top: 0;                /* md:mt-0 */
+    margin-left: auto;            /* md:ml-auto */
+  }
 }
 
 
