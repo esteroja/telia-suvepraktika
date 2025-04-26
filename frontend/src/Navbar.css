@@ -38,3 +38,11 @@
     display: flex;
     align-items: center;
 }
+
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}

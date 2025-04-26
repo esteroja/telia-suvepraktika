@@ -63,7 +63,7 @@ const SortSearch = ({people, setPeople}) => {
             <input
                 type="text"
                 placeholder="Otsi nime järgi..."
-                className="input-box md:mt-0 w-full mb-4"
+                className="input-box w-full my-4"
                 onChange={(e) => handleSearch(e.target.value)}
             />
             <select defaultValue={'default'}
