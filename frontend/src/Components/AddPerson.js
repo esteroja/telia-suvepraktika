@@ -35,13 +35,13 @@ const AddPerson = ({setPeople}) => {
             return;
         }
         if (!isEmailValid(emailRef.current.value)) {
-            setError('Vale e-maili formaat');
+            setError('Ebakorrektne e-mail');
             return;
         } else {
             setError('');
         }
         if (!isPhoneValid(phoneRef.current.value)) {
-            setError('Vale telefoninumbri formaat');
+            setError('Ebakorrektne telefoninumber');
             return;
         }
         const newPerson = {
@@ -68,7 +68,6 @@ const AddPerson = ({setPeople}) => {
                 phoneRef.current.value = "";
                 addressRef.current.value = "";
                 setError('');
-                alert('Uus isik on lisatud!');
             });
     }
 

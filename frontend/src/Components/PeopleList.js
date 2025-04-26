@@ -1,12 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import Fuse from 'fuse.js'
+import React, {useState} from 'react';
 import SortSearch from "./SortSearch";
 
 
 const PeopleList = ({people, setPeople}) => {
     const [editId, setEditId] = useState(null);
     const [editData, setEditData] = useState({});
-    const [sortState, setSortState] = useState("default");
+    const [updateError, setUpdateError] = useState('');
+
+    const isEmailValid = (email) => {
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(email);
+    };
+
+    const isPhoneValid = (phone) => {
+        const phonePattern = /^[0-9]+$/;
+        return phonePattern.test(phone);
+    };
+
 
     function deletePerson(id){
         fetch("http://localhost:8080/people/" + id, {"method": "DELETE"})
@@ -25,18 +35,39 @@ const PeopleList = ({people, setPeople}) => {
     }
 
     function updatePerson(id){
-        fetch("http://localhost:8080/people/update/" + id,
-            {
-                "method": "PUT",
-                "body": JSON.stringify(editData),
-                "headers": {"Content-Type": "application/json"}
-            })
+        if (
+            !editData.firstName?.trim() ||
+            !editData.lastName?.trim() ||
+            !editData.birthDate?.trim() ||
+            !editData.email?.trim() ||
+            !editData.phone?.trim() ||
+            !editData.address?.trim()
+        ) {
+            setUpdateError('Kõik väljad on kohustuslikud');
+            return;
+        }
+        if (!isEmailValid(editData.email)) {
+            setUpdateError('Ebakorrektne e-mail');
+            return;
+        }
+        if (!isPhoneValid(editData.phone)) {
+            setUpdateError('Ebakorrektne telefoninumber');
+            return;
+        }
+
+        setUpdateError(''); // Clear any old error if validation passes
+
+        fetch("http://localhost:8080/people/update/" + id, {
+            "method": "PUT",
+            "body": JSON.stringify(editData),
+            "headers": {"Content-Type": "application/json"}
+        })
             .then(response => response.json())
             .then(json => {
                 setPeople(json);
                 setEditId(null);
                 setEditData({});
-            })
+            });
     }
 
     return (
@@ -78,6 +109,7 @@ const PeopleList = ({people, setPeople}) => {
                                 <input className="input-box" name="address" value={editData.address}
                                        onChange={handleEditChange} />
                             </div>
+                            {updateError && <div className="text-red-500 mt-2">{updateError}</div>}
                             <div className="col-span-full space-x-2 mt-2">
                                 <button className="button-style bg-green-500 hover:bg-green-600"
                                         onClick={() => updatePerson(person.id)}>Salvesta</button>
