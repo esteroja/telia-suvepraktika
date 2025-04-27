@@ -13,6 +13,7 @@ const PeopleList = ({people, setPeople}) => {
     };
 
     const isPhoneValid = (phone) => {
+        phone = phone.trim();
         const phonePattern = /^[0-9]+$/;
         return phonePattern.test(phone);
     };
@@ -55,18 +56,29 @@ const PeopleList = ({people, setPeople}) => {
             return;
         }
 
-        setUpdateError(''); // Clear any old error if validation passes
+        setUpdateError('');
 
-        fetch("http://localhost:8080/people/update/" + id, {
+        fetch("http://localhost:8080/people/update/" + id,
+            {
             "method": "PUT",
             "body": JSON.stringify(editData),
             "headers": {"Content-Type": "application/json"}
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorList => {
+                        throw new Error(errorList.join(", "));
+                    });
+                }
+                return response.json();
+            })
             .then(json => {
                 setPeople(json);
                 setEditId(null);
                 setEditData({});
+            })
+            .catch(error => {
+                setUpdateError(error.message);
             });
     }
 

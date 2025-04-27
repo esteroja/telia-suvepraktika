@@ -16,6 +16,7 @@ const AddPerson = ({setPeople}) => {
     };
 
     const isPhoneValid = (phone) => {
+        phone = phone.trim();
         const phonePattern = /^[0-9]+$/;
         return phonePattern.test(phone);
     };
@@ -55,12 +56,20 @@ const AddPerson = ({setPeople}) => {
         }
         fetch("http://localhost:8080/people",
             {
-                "method": "POST",
-                "body": JSON.stringify(newPerson),
-                "headers": {"Content-Type": "application/json"}
+            "method": "POST",
+            "body": JSON.stringify(newPerson),
+            "headers": {"Content-Type": "application/json"}
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorList => {
+                        throw new Error(errorList.join(","));
+                    });
+                }
+                return response.json();
             })
-            .then(response => response.json())
-            .then(json => {setPeople(json);
+            .then(json => {
+                setPeople(json);
                 firstNameRef.current.value = "";
                 lastNameRef.current.value = "";
                 birthDateRef.current.value = "";
@@ -68,6 +77,9 @@ const AddPerson = ({setPeople}) => {
                 phoneRef.current.value = "";
                 addressRef.current.value = "";
                 setError('');
+            })
+            .catch(error => {
+                setError(error.message);
             });
     }
 
@@ -101,7 +113,13 @@ const AddPerson = ({setPeople}) => {
                         <input className="input-box" placeholder="Aadress" ref={addressRef} required/>
                     </div>
                 </div>
-                {error && <div className="text-red-500 mt-2">{error}</div>}
+                {error && (
+                    <div className="text-red-500 mt-2 flex flex-col text-left">
+                        {error.split(',').map((err, index) => (
+                            <div key={index}>{err}</div>
+                        ))}
+                    </div>
+                )}
                 <div className="mt-4">
                     <button className="button-style bg-indigo-400 hover:bg-indigo-600"
                             type="submit" onClick={addPerson}>Lisa</button>
