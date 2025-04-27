@@ -9,6 +9,7 @@ Ester Ojala
 - Gradle (The Groovy Plugin)
 - React
 - Fuse.js
+- Tailwind CSS
 - PostgreSQL versioon 17
 - Docker Desktop
 
